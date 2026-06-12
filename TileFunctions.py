@@ -1,6 +1,7 @@
 import os
 import struct
 import pygame
+import sys
 from tkinter import filedialog, messagebox
 
 from GetResources import *
@@ -9,11 +10,15 @@ from GetResources import *
 groupSize = 2
 
 def getFile(previousFileLength):
-    path = filedialog.askopenfilename()
-    if path != "":
+    if len(sys.argv) > 1:
+        path = sys.argv[1]
         fileLength = os.path.getsize(path)
     else:
-        fileLength = previousFileLength
+        path = filedialog.askopenfilename()
+        if path != "":
+            fileLength = os.path.getsize(path)
+        else:
+            fileLength = previousFileLength
     return path, fileLength
 
 def getTileData(tileData, tileList, previousTileData, isFirstLoad):
